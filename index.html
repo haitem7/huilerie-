@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TLEMCENYA — Huile d'Olive Vierge Extra du Terroir de Tlemcen</title>
+<meta name="description" content="TLEMCENYA — Huilerie Oued Lakhdar. Huile d'olive vierge extra, extraite à froid, première pression. Terroir de Tlemcen, Algérie." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          olive: { DEFAULT: '#2F3B22', dark: '#1B2314', light: '#4A5C33' },
+          gold:  { DEFAULT: '#C9A227', light: '#E4C55A', dark: '#9C7D1B' },
+          cream: { DEFAULT: '#FBF9F4', dark: '#F3EEE1' },
+        },
+        fontFamily: {
+          serif: ['"Playfair Display"', 'serif'],
+          sans: ['Inter', 'sans-serif'],
+        },
+        boxShadow: {
+          soft: '0 10px 30px -10px rgba(27,35,20,0.25)',
+          card: '0 4px 20px -4px rgba(27,35,20,0.15)',
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #FBF9F4; }
+  .bg-olive-texture {
+    background-image: radial-gradient(circle at 20% 20%, rgba(201,162,39,0.18), transparent 40%),
+                       radial-gradient(circle at 80% 60%, rgba(201,162,39,0.12), transparent 45%),
+                       linear-gradient(160deg, #1B2314 0%, #2F3B22 55%, #3A4A28 100%);
+  }
+  .placeholder-oil {
+    background: radial-gradient(circle at 30% 20%, #4A5C33 0%, #2F3B22 55%, #1B2314 100%);
+  }
+  .placeholder-story {
+    background: linear-gradient(135deg, #E4C55A 0%, #C9A227 45%, #9C7D1B 100%);
+  }
+  .cart-drawer { transition: transform 0.35s cubic-bezier(.4,0,.2,1); }
+  .fade-up { animation: fadeUp .6s ease both; }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(16px);} to { opacity:1; transform: translateY(0);} }
+  .toast { transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .35s ease; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-thumb { background: #C9A227; border-radius: 8px; }
+</style>
+</head>
+
+<body class="font-sans text-olive-dark antialiased">
+
+<!-- ============ HEADER ============ -->
+<header id="site-header" class="fixed top-0 inset-x-0 z-40 bg-cream/95 backdrop-blur border-b border-gold/20 transition-shadow">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+
+      <a href="#accueil" class="flex items-center gap-2 shrink-0">
+        <div class="w-11 h-11 rounded-full bg-olive flex items-center justify-center border-2 border-gold">
+          <i data-lucide="droplet" class="w-5 h-5 text-gold"></i>
+        </div>
+        <div class="leading-tight">
+          <div class="font-serif text-2xl tracking-wide text-olive">TLEMCENYA</div>
+          <div class="text-[10px] tracking-[0.2em] text-gold-dark uppercase -mt-1">Terroir de Tlemcen</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-10 text-sm font-semibold uppercase tracking-wide">
+        <a href="#accueil" class="hover:text-gold-dark transition-colors">Accueil</a>
+        <a href="#boutique" class="hover:text-gold-dark transition-colors">Boutique</a>
+        <a href="#histoire" class="hover:text-gold-dark transition-colors">Notre Histoire</a>
+        <a href="#contact" class="hover:text-gold-dark transition-colors">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/213553813756" target="_blank" rel="noopener" class="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-olive hover:text-gold-dark transition-colors">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+        </a>
+        <button onclick="openCart()" class="relative flex items-center justify-center w-11 h-11 rounded-full bg-olive text-cream hover:bg-olive-dark transition-colors shadow-card">
+          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+          <span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-gold text-olive-dark text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-cream">0</span>
+        </button>
+        <button onclick="toggleMobileMenu()" class="md:hidden w-11 h-11 flex items-center justify-center text-olive">
+          <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-gold/20 bg-cream">
+    <nav class="flex flex-col px-4 py-4 gap-4 text-sm font-semibold uppercase tracking-wide">
+      <a href="#accueil" onclick="toggleMobileMenu()" class="py-1">Accueil</a>
+      <a href="#boutique" onclick="toggleMobileMenu()" class="py-1">Boutique</a>
+      <a href="#histoire" onclick="toggleMobileMenu()" class="py-1">Notre Histoire</a>
+      <a href="#contact" onclick="toggleMobileMenu()" class="py-1">Contact</a>
+      <a href="https://wa.me/213553813756" target="_blank" rel="noopener" class="py-1 text-gold-dark">WhatsApp direct</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="accueil" class="relative bg-olive-texture text-cream pt-36 pb-24 sm:pt-44 sm:pb-32 overflow-hidden">
+  <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image:radial-gradient(circle,#C9A227 1px,transparent 1px);background-size:26px 26px;"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="fade-up">
+      <span class="inline-flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-[0.25em] border border-gold/40 rounded-full px-4 py-1.5 mb-6">
+        <i data-lucide="leaf" class="w-3.5 h-3.5"></i> Huilerie Oued Lakhdar — Algérie
+      </span>
+      <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6">
+        Notre savoir-faire,<br class="hidden sm:block"> la nature à l'état pur.
+      </h1>
+      <p class="text-cream/80 text-lg mb-4 max-w-lg">
+        Huile d'olive vierge extra, <span class="text-gold">extraite à froid</span> et issue de la
+        <span class="text-gold">première pression</span> des olives du terroir de Tlemcen.
+      </p>
+      <p class="italic font-serif text-gold-light text-xl mb-8">« Goût authentique de notre terroir »</p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#boutique" class="inline-flex items-center gap-2 bg-gold text-olive-dark font-bold px-7 py-3.5 rounded-full hover:bg-gold-light transition-colors shadow-soft">
+          Découvrir nos produits <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+        <a href="#histoire" class="inline-flex items-center gap-2 border border-cream/30 text-cream font-semibold px-7 py-3.5 rounded-full hover:bg-cream/10 transition-colors">
+          Notre histoire
+        </a>
+      </div>
+    </div>
+
+    <div class="relative fade-up" style="animation-delay:.15s">
+      <div class="aspect-[4/5] rounded-3xl placeholder-oil shadow-soft flex flex-col items-center justify-center text-center p-8 border border-gold/30">
+        <i data-lucide="droplet" class="w-16 h-16 text-gold mb-4"></i>
+        <p class="text-gold-light font-serif text-lg">Photo produit — bouteille TLEMCENYA</p>
+        <p class="text-cream/50 text-xs mt-2 uppercase tracking-wide">Emplacement à remplacer par votre visuel</p>
+      </div>
+      <div class="absolute -bottom-6 -left-6 bg-cream text-olive rounded-2xl shadow-soft px-5 py-4 flex items-center gap-3 border border-gold/20">
+        <i data-lucide="award" class="w-8 h-8 text-gold-dark"></i>
+        <div>
+          <div class="font-bold text-sm">Qualité</div>
+          <div class="text-xs text-olive-light">Première pression à froid</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRESENTATION ============ -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid md:grid-cols-3 gap-8">
+  <div class="text-center px-4">
+    <div class="w-14 h-14 mx-auto rounded-full bg-cream-dark flex items-center justify-center mb-4">
+      <i data-lucide="snowflake" class="w-6 h-6 text-gold-dark"></i>
+    </div>
+    <h3 class="font-serif text-xl mb-2">Extraite à froid</h3>
+    <p class="text-sm text-olive-light">Un procédé qui préserve tous les arômes et bienfaits naturels de l'olive.</p>
+  </div>
+  <div class="text-center px-4">
+    <div class="w-14 h-14 mx-auto rounded-full bg-cream-dark flex items-center justify-center mb-4">
+      <i data-lucide="sprout" class="w-6 h-6 text-gold-dark"></i>
+    </div>
+    <h3 class="font-serif text-xl mb-2">Première pression</h3>
+    <p class="text-sm text-olive-light">Olives cultivées, cueillies et pressées avec soin sur le terroir de Tlemcen.</p>
+  </div>
+  <div class="text-center px-4">
+    <div class="w-14 h-14 mx-auto rounded-full bg-cream-dark flex items-center justify-center mb-4">
+      <i data-lucide="map-pin" class="w-6 h-6 text-gold-dark"></i>
+    </div>
+    <h3 class="font-serif text-xl mb-2">Terroir de Tlemcen</h3>
+    <p class="text-sm text-olive-light">Une identité ancrée dans l'authenticité et le savoir-faire algérien.</p>
+  </div>
+</section>
+
+<!-- ============ BOUTIQUE ============ -->
+<section id="boutique" class="bg-cream-dark/60 py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <span class="text-gold-dark text-xs font-bold uppercase tracking-[0.25em]">Notre gamme</span>
+      <h2 class="font-serif text-3xl sm:text-4xl mt-2">Découvrez nos meilleurs formats</h2>
+    </div>
+
+    <!-- Filters -->
+    <div id="filters" class="flex flex-wrap justify-center gap-3 mb-10">
+      <button data-filter="tous" class="filter-btn active-filter px-5 py-2 rounded-full text-sm font-semibold border border-gold/40 transition-colors">Tous</button>
+      <button data-filter="decouverte" class="filter-btn px-5 py-2 rounded-full text-sm font-semibold border border-gold/40 transition-colors">Format Découverte</button>
+      <button data-filter="famille" class="filter-btn px-5 py-2 rounded-full text-sm font-semibold border border-gold/40 transition-colors">Format Famille</button>
+      <button data-filter="coffret" class="filter-btn px-5 py-2 rounded-full text-sm font-semibold border border-gold/40 transition-colors">Coffrets</button>
+    </div>
+
+    <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6"></div>
+  </div>
+</section>
+
+<!-- ============ HISTOIRE ============ -->
+<section id="histoire" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid lg:grid-cols-2 gap-12 items-center">
+  <div class="aspect-[4/3] rounded-3xl placeholder-story shadow-soft flex flex-col items-center justify-center text-center p-8 order-2 lg:order-1">
+    <i data-lucide="mountain-snow" class="w-14 h-14 text-olive-dark mb-4"></i>
+    <p class="font-serif text-lg text-olive-dark">Photo — Oliveraie / Huilerie Oued Lakhdar</p>
+    <p class="text-olive-dark/60 text-xs mt-2 uppercase tracking-wide">Emplacement à remplacer par votre visuel</p>
+  </div>
+  <div class="order-1 lg:order-2">
+    <span class="text-gold-dark text-xs font-bold uppercase tracking-[0.25em]">Notre histoire</span>
+    <h2 class="font-serif text-3xl sm:text-4xl mt-2 mb-6">Huilerie Oued Lakhdar</h2>
+    <p class="text-olive-light mb-4 leading-relaxed">
+      Nichée à Oued Lakhdar, Tlemcen, notre huilerie perpétue un savoir-faire familial transmis avec passion.
+      Chaque olive est cultivée, cueillie et pressée dans notre région, afin de vous offrir le meilleur des
+      saveurs méditerranéennes.
+    </p>
+    <p class="text-olive-light mb-8 leading-relaxed">
+      TLEMCENYA, c'est la promesse d'une huile d'olive vierge extra authentique — extraite à froid, en
+      première pression — pour sublimer tous vos plats du quotidien comme vos grandes occasions.
+    </p>
+    <blockquote class="border-l-4 border-gold pl-5 italic font-serif text-xl text-olive-dark">
+      « Notre savoir-faire, la nature à l'état pur »
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="bg-olive-texture text-cream py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12">
+    <div>
+      <span class="text-gold text-xs font-bold uppercase tracking-[0.25em]">Contact</span>
+      <h2 class="font-serif text-3xl sm:text-4xl mt-2 mb-8">Parlons de votre commande</h2>
+
+      <div class="space-y-5 mb-10">
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center shrink-0"><i data-lucide="map-pin" class="w-4 h-4 text-gold"></i></div>
+          <p class="text-cream/80">Rue Oued Lakhdar, Oued Lakhdar, Tlemcen – Algérie</p>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center shrink-0"><i data-lucide="phone" class="w-4 h-4 text-gold"></i></div>
+          <p class="text-cream/80">+213 553 81 37 56 &nbsp;/&nbsp; +213 770 21 35 92</p>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center shrink-0"><i data-lucide="mail" class="w-4 h-4 text-gold"></i></div>
+          <p class="text-cream/80">huilerie.ouedlakhdar@gmail.com</p>
+        </div>
+      </div>
+
+      <a href="https://wa.me/213553813756" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-gold text-olive-dark font-bold px-6 py-3 rounded-full hover:bg-gold-light transition-colors">
+        <i data-lucide="message-circle" class="w-4 h-4"></i> Nous écrire sur WhatsApp
+      </a>
+    </div>
+
+    <form id="contact-form" class="bg-cream text-olive-dark rounded-3xl p-8 shadow-soft space-y-4">
+      <div>
+        <label class="text-xs font-semibold uppercase tracking-wide text-olive-light">Nom</label>
+        <input required type="text" name="name" class="w-full mt-1 rounded-xl border border-olive/15 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold bg-cream-dark/40" />
+      </div>
+      <div>
+        <label class="text-xs font-semibold uppercase tracking-wide text-olive-light">Email</label>
+        <input required type="email" name="email" class="w-full mt-1 rounded-xl border border-olive/15 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold bg-cream-dark/40" />
+      </div>
+      <div>
+        <label class="text-xs font-semibold uppercase tracking-wide text-olive-light">Message</label>
+        <textarea required name="message" rows="4" class="w-full mt-1 rounded-xl border border-olive/15 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold bg-cream-dark/40"></textarea>
+      </div>
+      <button type="submit" class="w-full bg-olive text-cream font-bold py-3.5 rounded-xl hover:bg-olive-dark transition-colors">Envoyer le message</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-olive-dark text-cream/70 py-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+    <div class="font-serif text-lg text-cream">TLEMCENYA <span class="text-cream/50 text-xs font-sans">— Huilerie Oued Lakhdar</span></div>
+    <p>© <span id="year"></span> TLEMCENYA. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<!-- ============ CART DRAWER ============ -->
+<div id="cart-overlay" onclick="closeCart()" class="fixed inset-0 bg-olive-dark/60 z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+<aside id="cart-drawer" class="cart-drawer fixed top-0 right-0 h-full w-full sm:w-[420px] bg-cream z-50 shadow-soft translate-x-full flex flex-col">
+  <div class="flex items-center justify-between px-6 py-5 border-b border-olive/10">
+    <h3 class="font-serif text-xl">Votre panier</h3>
+    <button onclick="closeCart()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-cream-dark"><i data-lucide="x" class="w-5 h-5"></i></button>
+  </div>
+
+  <div class="px-6 py-4 border-b border-olive/10">
+    <div class="flex justify-between text-xs font-semibold mb-2">
+      <span id="shipping-label">Ajoutez <span class="text-gold-dark" id="shipping-remaining">5000 DA</span> pour la livraison offerte</span>
+    </div>
+    <div class="w-full h-2 rounded-full bg-cream-dark overflow-hidden">
+      <div id="shipping-bar" class="h-full bg-gold transition-all duration-500" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div id="cart-items" class="flex-1 overflow-y-auto px-6 py-4 space-y-4"></div>
+
+  <div class="px-6 py-5 border-t border-olive/10 space-y-4">
+    <div class="flex justify-between font-bold text-lg">
+      <span>Sous-total</span>
+      <span id="cart-subtotal">0 DA</span>
+    </div>
+    <button onclick="checkoutWhatsApp()" class="w-full flex items-center justify-center gap-2 bg-gold text-olive-dark font-bold py-3.5 rounded-full hover:bg-gold-light transition-colors">
+      <i data-lucide="message-circle" class="w-4 h-4"></i> Commander via WhatsApp
+    </button>
+  </div>
+</aside>
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-24 opacity-0 z-[60] bg-olive text-cream px-6 py-3.5 rounded-full shadow-soft text-sm font-semibold flex items-center gap-2 toast">
+  <i data-lucide="check-circle" class="w-4 h-4 text-gold"></i>
+  <span id="toast-text">Ajouté au panier</span>
+</div>
+
+<script>
+lucide.createIcons();
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- PRODUCTS ---------- */
+const PRODUCTS = [
+  {
+    id: 'coffret-prestige-2x500',
+    name: "Coffret Prestige 2×500ml",
+    category: 'coffret',
+    price: 3200,
+    desc: "Deux bouteilles vierge extra en coffret cadeau, idéal pour offrir."
+  },
+  {
+    id: 'bidon-5l',
+    name: "Bidon Vierge Extra 5L",
+    category: 'famille',
+    price: 2800,
+    desc: "Format famille, pour toutes les occasions de cuisine du quotidien."
+  },
+  {
+    id: 'bouteille-1l',
+    name: "Bouteille Vierge Extra 1L",
+    category: 'famille',
+    price: 900,
+    desc: "Notre huile phare, extraite à froid, première pression."
+  },
+  {
+    id: 'bouteille-500ml',
+    name: "Bouteille Découverte 500ml",
+    category: 'decouverte',
+    price: 550,
+    desc: "Le format idéal pour découvrir le goût authentique de notre terroir."
+  },
+];
+/* NOTE : prix indiqués à titre d'exemple (DA) — à remplacer par vos tarifs réels. */
+
+const FREE_SHIPPING_THRESHOLD = 5000;
+const WHATSAPP_NUMBER = '213553813756';
+
+function formatDA(n){ return n.toLocaleString('fr-FR') + ' DA'; }
+
+/* ---------- RENDER PRODUCTS ---------- */
+const grid = document.getElementById('product-grid');
+function renderProducts(filter='tous'){
+  grid.innerHTML = '';
+  PRODUCTS.filter(p => filter==='tous' || p.category===filter).forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'fade-up bg-cream rounded-2xl shadow-card border border-olive/5 overflow-hidden hover:-translate-y-1 hover:shadow-soft transition-all duration-300';
+    card.style.animationDelay = (i*0.06)+'s';
+    card.innerHTML = `
+      <div class="aspect-square placeholder-oil flex items-center justify-center">
+        <i data-lucide="droplet" class="w-10 h-10 text-gold"></i>
+      </div>
+      <div class="p-4">
+        <h4 class="font-serif text-sm sm:text-base leading-snug mb-1">${p.name}</h4>
+        <p class="text-xs text-olive-light mb-3 hidden sm:block">${p.desc}</p>
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-gold-dark">${formatDA(p.price)}</span>
+        </div>
+        <button onclick="addToCart('${p.id}')" class="mt-3 w-full flex items-center justify-center gap-1.5 bg-olive text-cream text-xs sm:text-sm font-semibold py-2.5 rounded-full hover:bg-olive-dark transition-colors">
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i> Ajouter au panier
+        </button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  lucide.createIcons();
+}
+renderProducts();
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.remove('active-filter','bg-olive','text-cream');
+    });
+    btn.classList.add('active-filter','bg-olive','text-cream');
+    renderProducts(btn.dataset.filter);
+  });
+});
+document.querySelector('.filter-btn[data-filter="tous"]').classList.add('bg-olive','text-cream');
+
+/* ---------- CART (localStorage) ---------- */
+let cart = JSON.parse(localStorage.getItem('tlemcenya_cart') || '[]');
+
+function saveCart(){
+  localStorage.setItem('tlemcenya_cart', JSON.stringify(cart));
+  renderCart();
+}
+
+function addToCart(id){
+  const product = PRODUCTS.find(p => p.id === id);
+  const existing = cart.find(i => i.id === id);
+  if (existing) existing.qty += 1;
+  else cart.push({ id: product.id, name: product.name, price: product.price, qty: 1 });
+  saveCart();
+  showToast(`${product.name} ajouté au panier`);
+  openCart();
+}
+
+function updateQty(id, delta){
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+  saveCart();
+}
+
+function removeFromCart(id){
+  cart = cart.filter(i => i.id !== id);
+  saveCart();
+}
+
+function cartSubtotal(){
+  return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+}
+
+function renderCart(){
+  const container = document.getElementById('cart-items');
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-count').textContent = count;
+
+  if (cart.length === 0){
+    container.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-center text-olive-light py-16">
+      <i data-lucide="shopping-bag" class="w-10 h-10 mb-3 opacity-40"></i>
+      <p class="text-sm">Votre panier est vide</p>
+    </div>`;
+  } else {
+    container.innerHTML = cart.map(i => `
+      <div class="flex items-center gap-3 border-b border-olive/10 pb-4">
+        <div class="w-16 h-16 rounded-xl placeholder-oil flex items-center justify-center shrink-0">
+          <i data-lucide="droplet" class="w-5 h-5 text-gold"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold truncate">${i.name}</p>
+          <p class="text-xs text-olive-light">${formatDA(i.price)}</p>
+          <div class="flex items-center gap-2 mt-2">
+            <button onclick="updateQty('${i.id}', -1)" class="w-6 h-6 rounded-full border border-olive/20 flex items-center justify-center text-xs hover:bg-cream-dark">−</button>
+            <span class="text-sm w-5 text-center">${i.qty}</span>
+            <button onclick="updateQty('${i.id}', 1)" class="w-6 h-6 rounded-full border border-olive/20 flex items-center justify-center text-xs hover:bg-cream-dark">+</button>
+          </div>
+        </div>
+        <button onclick="removeFromCart('${i.id}')" class="text-olive-light hover:text-red-600"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+      </div>
+    `).join('');
+  }
+
+  const subtotal = cartSubtotal();
+  document.getElementById('cart-subtotal').textContent = formatDA(subtotal);
+
+  const remaining = Math.max(FREE_SHIPPING_THRESHOLD - subtotal, 0);
+  const pct = Math.min((subtotal / FREE_SHIPPING_THRESHOLD) * 100, 100);
+  document.getElementById('shipping-bar').style.width = pct + '%';
+  document.getElementById('shipping-label').innerHTML = remaining > 0
+    ? `Ajoutez <span class="text-gold-dark">${formatDA(remaining)}</span> pour la livraison offerte`
+    : `<span class="text-gold-dark">Livraison offerte débloquée !</span>`;
+
+  lucide.createIcons();
+}
+renderCart();
+
+/* ---------- CART DRAWER OPEN/CLOSE ---------- */
+function openCart(){
+  document.getElementById('cart-drawer').classList.remove('translate-x-full');
+  document.getElementById('cart-overlay').classList.remove('opacity-0','pointer-events-none');
+}
+function closeCart(){
+  document.getElementById('cart-drawer').classList.add('translate-x-full');
+  document.getElementById('cart-overlay').classList.add('opacity-0','pointer-events-none');
+}
+
+/* ---------- WHATSAPP CHECKOUT ---------- */
+function checkoutWhatsApp(){
+  if (cart.length === 0){ showToast('Votre panier est vide'); return; }
+  let msg = `Bonjour TLEMCENYA, je souhaite commander :%0A%0A`;
+  cart.forEach(i => {
+    msg += `• ${i.name} x${i.qty} — ${formatDA(i.price * i.qty)}%0A`;
+  });
+  msg += `%0ATotal : ${formatDA(cartSubtotal())}`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+}
+
+/* ---------- MOBILE MENU ---------- */
+function toggleMobileMenu(){
+  const menu = document.getElementById('mobile-menu');
+  const icon = document.getElementById('menu-icon');
+  const isHidden = menu.classList.contains('hidden');
+  menu.classList.toggle('hidden');
+  icon.setAttribute('data-lucide', isHidden ? 'x' : 'menu');
+  lucide.createIcons();
+}
+
+/* ---------- TOAST ---------- */
+let toastTimer;
+function showToast(text){
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-text').textContent = text;
+  clearTimeout(toastTimer);
+  toast.classList.remove('translate-y-24','opacity-0');
+  toastTimer = setTimeout(() => toast.classList.add('translate-y-24','opacity-0'), 2600);
+}
+
+/* ---------- CONTACT FORM ---------- */
+document.getElementById('contact-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  showToast('Message envoyé — nous vous répondrons rapidement !');
+  this.reset();
+});
+
+/* ---------- HEADER SHADOW ON SCROLL ---------- */
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('site-header');
+  header.classList.toggle('shadow-card', window.scrollY > 10);
+});
+</script>
+
+</body>
+</html>
