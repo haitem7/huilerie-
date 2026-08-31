@@ -43,12 +43,6 @@
                        radial-gradient(circle at 80% 60%, rgba(201,162,39,0.12), transparent 45%),
                        linear-gradient(160deg, #1B2314 0%, #2F3B22 55%, #3A4A28 100%);
   }
-  .placeholder-oil {
-    background: radial-gradient(circle at 30% 20%, #4A5C33 0%, #2F3B22 55%, #1B2314 100%);
-  }
-  .placeholder-story {
-    background: linear-gradient(135deg, #E4C55A 0%, #C9A227 45%, #9C7D1B 100%);
-  }
   .cart-drawer { transition: transform 0.35s cubic-bezier(.4,0,.2,1); }
   .fade-up { animation: fadeUp .6s ease both; }
   @keyframes fadeUp { from { opacity:0; transform: translateY(16px);} to { opacity:1; transform: translateY(0);} }
@@ -136,10 +130,8 @@
     </div>
 
     <div class="relative fade-up" style="animation-delay:.15s">
-      <div class="aspect-[4/5] rounded-3xl placeholder-oil shadow-soft flex flex-col items-center justify-center text-center p-8 border border-gold/30">
-        <i data-lucide="droplet" class="w-16 h-16 text-gold mb-4"></i>
-        <p class="text-gold-light font-serif text-lg">Photo produit — bouteille TLEMCENYA</p>
-        <p class="text-cream/50 text-xs mt-2 uppercase tracking-wide">Emplacement à remplacer par votre visuel</p>
+      <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-soft border border-gold/30">
+        <img src="hero-bottle.jpg" alt="Bouteille d'huile d'olive vierge extra TLEMCENYA" class="w-full h-full object-cover" />
       </div>
       <div class="absolute -bottom-6 -left-6 bg-cream text-olive rounded-2xl shadow-soft px-5 py-4 flex items-center gap-3 border border-gold/20">
         <i data-lucide="award" class="w-8 h-8 text-gold-dark"></i>
@@ -199,10 +191,8 @@
 
 <!-- ============ HISTOIRE ============ -->
 <section id="histoire" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid lg:grid-cols-2 gap-12 items-center">
-  <div class="aspect-[4/3] rounded-3xl placeholder-story shadow-soft flex flex-col items-center justify-center text-center p-8 order-2 lg:order-1">
-    <i data-lucide="mountain-snow" class="w-14 h-14 text-olive-dark mb-4"></i>
-    <p class="font-serif text-lg text-olive-dark">Photo — Oliveraie / Huilerie Oued Lakhdar</p>
-    <p class="text-olive-dark/60 text-xs mt-2 uppercase tracking-wide">Emplacement à remplacer par votre visuel</p>
+  <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-soft order-2 lg:order-1">
+    <img src="oliveraie.jpg" alt="Oliveraie du terroir de Tlemcen" class="w-full h-full object-cover" />
   </div>
   <div class="order-1 lg:order-2">
     <span class="text-gold-dark text-xs font-bold uppercase tracking-[0.25em]">Notre histoire</span>
@@ -219,6 +209,42 @@
     <blockquote class="border-l-4 border-gold pl-5 italic font-serif text-xl text-olive-dark">
       « Notre savoir-faire, la nature à l'état pur »
     </blockquote>
+  </div>
+</section>
+
+<!-- ============ GALERIE / DU TERROIR A VOTRE TABLE ============ -->
+<section class="bg-cream-dark/60 py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <span class="text-gold-dark text-xs font-bold uppercase tracking-[0.25em]">De la récolte à votre table</span>
+      <h2 class="font-serif text-3xl sm:text-4xl mt-2">Un savoir-faire à chaque étape</h2>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+      <figure class="rounded-2xl overflow-hidden shadow-card group">
+        <div class="aspect-[3/4] overflow-hidden">
+          <img src="cueillette.jpg" alt="Cueillette des olives à la main" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        </div>
+        <figcaption class="p-3 text-sm font-semibold text-center">La cueillette</figcaption>
+      </figure>
+      <figure class="rounded-2xl overflow-hidden shadow-card group">
+        <div class="aspect-[3/4] overflow-hidden">
+          <img src="moulin-extraction.jpg" alt="Extraction à froid de l'huile d'olive" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        </div>
+        <figcaption class="p-3 text-sm font-semibold text-center">L'extraction à froid</figcaption>
+      </figure>
+      <figure class="rounded-2xl overflow-hidden shadow-card group">
+        <div class="aspect-[3/4] overflow-hidden">
+          <img src="salade.jpg" alt="Salade méditerranéenne à l'huile TLEMCENYA" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        </div>
+        <figcaption class="p-3 text-sm font-semibold text-center">Vos plats sublimés</figcaption>
+      </figure>
+      <figure class="rounded-2xl overflow-hidden shadow-card group">
+        <div class="aspect-[3/4] overflow-hidden">
+          <img src="huile-plat.jpg" alt="Huile d'olive vierge extra TLEMCENYA en cuisine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        </div>
+        <figcaption class="p-3 text-sm font-semibold text-center">Le goût du terroir</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -322,28 +348,32 @@ const PRODUCTS = [
     name: "Coffret Prestige 2×500ml",
     category: 'coffret',
     price: 3200,
-    desc: "Deux bouteilles vierge extra en coffret cadeau, idéal pour offrir."
+    desc: "Deux bouteilles vierge extra en coffret cadeau, idéal pour offrir.",
+    img: 'hero-bottle.jpg'
   },
   {
     id: 'bidon-5l',
     name: "Bidon Vierge Extra 5L",
     category: 'famille',
     price: 2800,
-    desc: "Format famille, pour toutes les occasions de cuisine du quotidien."
+    desc: "Format famille, pour toutes les occasions de cuisine du quotidien.",
+    img: 'produit-5l.jpg'
   },
   {
     id: 'bouteille-1l',
     name: "Bouteille Vierge Extra 1L",
     category: 'famille',
     price: 900,
-    desc: "Notre huile phare, extraite à froid, première pression."
+    desc: "Notre huile phare, extraite à froid, première pression.",
+    img: 'produit-1l.jpg'
   },
   {
     id: 'bouteille-500ml',
     name: "Bouteille Découverte 500ml",
     category: 'decouverte',
     price: 550,
-    desc: "Le format idéal pour découvrir le goût authentique de notre terroir."
+    desc: "Le format idéal pour découvrir le goût authentique de notre terroir.",
+    img: 'produit-500ml.jpg'
   },
 ];
 /* NOTE : prix indiqués à titre d'exemple (DA) — à remplacer par vos tarifs réels. */
@@ -362,8 +392,8 @@ function renderProducts(filter='tous'){
     card.className = 'fade-up bg-cream rounded-2xl shadow-card border border-olive/5 overflow-hidden hover:-translate-y-1 hover:shadow-soft transition-all duration-300';
     card.style.animationDelay = (i*0.06)+'s';
     card.innerHTML = `
-      <div class="aspect-square placeholder-oil flex items-center justify-center">
-        <i data-lucide="droplet" class="w-10 h-10 text-gold"></i>
+      <div class="aspect-square overflow-hidden">
+        <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover" loading="lazy" />
       </div>
       <div class="p-4">
         <h4 class="font-serif text-sm sm:text-base leading-snug mb-1">${p.name}</h4>
@@ -405,7 +435,7 @@ function addToCart(id){
   const product = PRODUCTS.find(p => p.id === id);
   const existing = cart.find(i => i.id === id);
   if (existing) existing.qty += 1;
-  else cart.push({ id: product.id, name: product.name, price: product.price, qty: 1 });
+  else cart.push({ id: product.id, name: product.name, price: product.price, img: product.img, qty: 1 });
   saveCart();
   showToast(`${product.name} ajouté au panier`);
   openCart();
@@ -441,8 +471,8 @@ function renderCart(){
   } else {
     container.innerHTML = cart.map(i => `
       <div class="flex items-center gap-3 border-b border-olive/10 pb-4">
-        <div class="w-16 h-16 rounded-xl placeholder-oil flex items-center justify-center shrink-0">
-          <i data-lucide="droplet" class="w-5 h-5 text-gold"></i>
+        <div class="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+          <img src="${i.img}" alt="${i.name}" class="w-full h-full object-cover" />
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-sm font-semibold truncate">${i.name}</p>
