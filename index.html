@@ -104,15 +104,22 @@
 </header>
 
 <!-- ============ HERO ============ -->
-<section id="accueil" class="relative bg-olive-texture text-cream pt-20 pb-24 sm:pb-32 overflow-hidden">
-  <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image:radial-gradient(circle,#C9A227 1px,transparent 1px);background-size:26px 26px;"></div>
-
-  <div class="relative w-full aspect-[2/1] fade-up">
-    <img src="hero-bottle.jpg" alt="TLEMCENYA — Huile d'olive vierge extra du terroir de Tlemcen" class="w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-gradient-to-t from-olive-dark/70 via-olive-dark/10 to-transparent"></div>
+<section id="accueil" class="pt-20">
+  <!-- Bandeau bannière -->
+  <div class="w-full h-40 sm:h-56 lg:h-72 flex fade-up">
+    <div class="w-3/5 sm:w-2/3 h-full overflow-hidden">
+      <img src="hero-banner-photo.jpg" alt="TLEMCENYA — Huile d'olive vierge extra du terroir de Tlemcen" class="w-full h-full object-cover" />
+    </div>
+    <div class="w-2/5 sm:w-1/3 h-full bg-cream flex flex-col items-center justify-center text-center px-3 sm:px-6 border-l border-gold/20">
+      <p class="font-serif text-2xl sm:text-4xl lg:text-5xl leading-none text-olive">TLEMCENYA<sup class="text-xs sm:text-sm align-super">®</sup></p>
+      <p class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-gold-dark font-bold mt-2 sm:mt-3">Terroir de Tlemcen</p>
+    </div>
   </div>
 
-  <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-14 fade-up" style="animation-delay:.1s">
+  <div class="relative bg-olive-texture text-cream pt-16 pb-24 sm:pb-32 overflow-hidden">
+  <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image:radial-gradient(circle,#C9A227 1px,transparent 1px);background-size:26px 26px;"></div>
+
+  <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-up" style="animation-delay:.1s">
     <span class="inline-flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-[0.25em] border border-gold/40 rounded-full px-4 py-1.5 mb-6">
       <i data-lucide="leaf" class="w-3.5 h-3.5"></i> Huilerie Oued Lakhdar — Algérie
     </span>
@@ -139,6 +146,7 @@
         <div class="text-xs text-olive-light">Première pression à froid</div>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
